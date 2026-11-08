@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Handmade Whips | [COMPANYNAME]</title>
+<meta name="description" content="Hand-braided whips made to order. Request yours today.">
+<style>
+:root{--bg:#14100d;--panel:#1f1813;--ink:#efe4d3;--mute:#a8977f;--brass:#c8963e;--red:#a63a22}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:17px/1.65 Georgia,"Times New Roman",serif}
+a{color:var(--brass)}
+nav{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:.8rem 5vw;background:rgba(20,16,13,.92);backdrop-filter:blur(6px);border-bottom:1px solid #3a2e22}
+nav b{letter-spacing:.2em;text-transform:uppercase;font-size:.95rem}
+nav div a{margin-left:1.4rem;text-decoration:none;color:var(--mute);font-size:.9rem}
+nav div a:hover{color:var(--brass)}
+/* HERO / BANNER */
+.hero{position:relative;height:340px;overflow:hidden;cursor:pointer;-webkit-tap-highlight-color:transparent;background:radial-gradient(ellipse at 15% 85%,#3a2414,var(--bg) 70%)}
+#whip{position:absolute;inset:0;width:100%;height:100%}
+.copy{position:absolute;right:5vw;top:50%;transform:translateY(-50%);text-align:right;pointer-events:none}
+.copy h1{font-size:clamp(1.6rem,3.8vw,3.2rem);line-height:1.08;text-transform:uppercase;letter-spacing:.06em}
+.copy h1 span{display:inline-block;opacity:0}
+.hero.go h1 span{animation:fly .9s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes fly{from{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--r)) scale(1.8)}to{opacity:1;transform:none}}
+.copy p.tag{margin-top:.6rem;color:var(--brass);font-style:italic;opacity:0;transition:opacity .8s .5s}
+.hero.go p.tag{opacity:1}
+.hint{position:absolute;left:5vw;top:.9rem;color:var(--mute);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;pointer-events:none}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+.hero.go .flash{animation:fl .25s ease-out}
+.hero.shake #whip,.hero.shake .copy{animation:shake .32s linear}
+@keyframes shake{0%,100%{translate:0 0}20%{translate:4px -3px}40%{translate:-4px 2px}60%{translate:3px 3px}80%{translate:-2px -2px}}
+@media(max-width:900px){.hero{height:420px}.copy{left:5vw;right:5vw;top:3.4rem;transform:none;text-align:center}.copy h1{font-size:clamp(1.5rem,7vw,2.6rem)}}
+@keyframes fl{from{opacity:.35}to{opacity:0}}
+/* SECTIONS */
+section{padding:4rem 5vw;max-width:1100px;margin:auto}
+h2{font-size:1.7rem;text-transform:uppercase;letter-spacing:.14em;margin-bottom:1rem}
+h2::after{content:"";display:block;width:60px;height:2px;background:var(--brass);margin-top:.5rem}
+.welcome p{max-width:62ch;margin-bottom:1rem;color:#d8cbb6}
+/* GALLERY */
+.gal-wrap{position:relative}
+.gallery{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:.5rem 0 1rem;scrollbar-color:var(--brass) var(--panel)}
+.gallery figure{flex:0 0 min(78%,380px);scroll-snap-align:center;background:var(--panel);border:1px solid #3a2e22}
+.gallery .ph,.gallery img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+.gallery .ph{display:grid;place-items:center;color:var(--mute);font-size:.85rem}
+.gallery figcaption{padding:.6rem .9rem;font-size:.9rem;color:var(--mute)}
+.arrows{display:flex;gap:.5rem;margin-top:.3rem}
+.arrows button{background:var(--panel);color:var(--brass);border:1px solid #3a2e22;width:42px;height:42px;font-size:1.2rem;cursor:pointer}
+.arrows button:hover{background:var(--brass);color:#14100d}
+/* VIDEO */
+.video{aspect-ratio:16/9;background:var(--panel);border:1px solid #3a2e22;display:grid;place-items:center;color:var(--mute)}
+.video video{width:100%;height:100%;object-fit:cover}
+/* FORM */
+form{display:grid;gap:1rem;max-width:620px}
+label{display:grid;gap:.3rem;font-size:.9rem;color:var(--mute)}
+input,select,textarea{background:var(--panel);color:var(--ink);border:1px solid #4a3a2a;padding:.7rem;font:inherit;border-radius:2px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--brass)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:560px){.row{grid-template-columns:1fr}nav div a{margin-left:.8rem}}
+.go-btn{background:var(--red);color:#fff;border:0;padding:.9rem 1.4rem;font:inherit;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.go-btn:hover{background:#c24526}
+.note{font-size:.85rem;color:var(--mute)}
+.hp{position:absolute;left:-9999px}
+footer{text-align:center;padding:2rem;color:var(--mute);font-size:.85rem;border-top:1px solid #3a2e22}
+</style>
+</head>
+<body>
+<nav><b>[Maker Name]</b><div><a href="#about">Welcome</a><a href="#gallery">Gallery</a><a href="#video">In Action</a><a href="#order">Order</a></div></nav>
+
+<header class="hero" id="hero" role="button" tabindex="0" aria-label="Replay the whip crack">
+  <canvas id="whip" aria-hidden="true"></canvas>
+  <div class="flash"></div>
+  <div class="copy">
+    <h1 id="headline" aria-label="Hand braided. Built to crack.">Hand Braided.<br>Built to Crack.</h1>
+    <p class="tag">Custom whips, made one at a time.</p>
+  </div>
+  <span class="hint">Tap to crack</span>
+</header>
+
+<section class="welcome" id="about">
+  <h2>Welcome</h2>
+  <p>Every whip here is braided by hand, start to finish. Pick your length, your colors and your style, and it gets built just for you.</p>
+  <p>how long you been braiding, what you use (kangaroo hide, paracord, nylon), and what makes your work different.</p>
+</section>
+
+<section id="gallery">
+  <h2>The Work</h2>
+  <div class="gal-wrap">
+    <div class="gallery" id="gal">
+      <!-- Replace each .ph div with: <img src="images/whip1.jpg" alt="Description"> -->
+      <figure><img src="media/Dualorange.jpg"><figcaption>Bullwhip, 8ft, dual whips Orange</figcaption></figure>
+      <figure><img src="media/redandBlack.jpg"><figcaption>Signal whip, red and black</figcaption></figure>
+      <figure><img src="media/redWhiteblue.jpg"><figcaption>Red White and Blue</figcaption></figure>
+      <figure><img src="media/StrippedRedwhiteBlue.jpg"><figcaption>Stripped Red White and Blue</figcaption></figure>
+    </div>
+    <div class="arrows"><button id="prev" aria-label="Previous">&#8592;</button><button id="next" aria-label="Next">&#8594;</button></div>
+  </div>
+</section>
+
+<section id="video">
+  <h2>In Action</h2>
+  <div class="video">
+    <!-- Swap in: <video controls poster="images/poster.jpg" src="video/whip.mp4" playsinline></video> -->
+    <span><video controls poster="images/poster.jpg" src="media/crack it.mp4" playsinline></video><video controls poster="images/poster.jpg" src="testcode/media/glowInTheDark.mp4" playsinline></video>
+  </div>
+  <p class="note" style="margin-top:.6rem">Tip: keep the file under ~25 MB (short MP4, H.264) so it loads fast. Or embed a YouTube link instead.</p>
+</section>
+
+<section id="order">
+  <h2>Request a Whip</h2>
+  <p class="note" style="margin-bottom:1rem">Send a request and you'll get an email back with a quote and timeline. No payment is taken on this site.</p>
+  <form name="whip-order" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="whip-order">
+    <p class="hp"><label>Leave blank <input name="bot-field"></label></p>
+    <div class="row">
+      <label>Name <input name="name" required autocomplete="name"></label>
+      <label>Email <input type="email" name="email" required autocomplete="email"></label>
+    </div>
+    <div class="row">
+      <label>Style
+        <select name="style"><option>Bullwhip</option><option>Signal whip</option><option>Snake whip</option><option>Not sure yet</option></select>
+      </label>
+      <label>Length <input name="length" placeholder="e.g. 6 ft"></label>
+    </div>
+    <label>Colors / details <input name="colors" placeholder="e.g. black and tan, red popper"></label>
+    <label>Anything else? <textarea name="message" rows="4"></textarea></label>
+    <button class="go-btn" type="submit">Send Request</button>
+  </form>
+</section>
+
+<footer>&copy; <span id="yr"></span> YOUR FOOTER TAG/Company</footer>
+
+<script>
+(function(){
+  document.getElementById('yr').textContent=new Date().getFullYear();
+  // gallery arrows
+  var gal=document.getElementById('gal');
+  document.getElementById('next').onclick=function(){gal.scrollBy({left:gal.clientWidth*.7,behavior:'smooth'})};
+  document.getElementById('prev').onclick=function(){gal.scrollBy({left:-gal.clientWidth*.7,behavior:'smooth'})};
+
+  // headline letters
+  var h=document.getElementById('headline'),hero=document.getElementById('hero');
+  var label=h.getAttribute('aria-label');
+  h.innerHTML=h.innerHTML.split(/(<br>)/).map(function(p){
+    if(p==='<br>')return p;
+    return p.split('').map(function(c,i){
+      if(c===' ')return ' ';
+      return '<span style="--dx:'+((Math.random()-.5)*500|0)+'px;--dy:'+((Math.random()-.5)*200|0)+'px;--r:'+((Math.random()-.5)*160|0)+'deg;animation-delay:'+(i*18)+'ms">'+c+'</span>';
+    }).join('');
+  }).join('');
+  h.setAttribute('aria-label',label);
+
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cv=document.getElementById('whip'),ctx=cv.getContext('2d');
+  var W,H,hx,hy,Lw,N=44,dpr=Math.min(devicePixelRatio||1,2),D=Math.PI/180;
+  var X=[],Y=[],sparks=[],ring=null,cracked=false,userTap=false,tStart=performance.now(),visible=true,running=false,armed=false;
+  function clamp(x){return x<0?0:x>1?1:x}
+  function ease(x){return x*x*(3-2*x)}
+  function lerp(a,b,t){return a+(b-a)*t}
+
+  // layout: side-by-side on wide screens, whip under the text on narrow ones
+  function size(){
+    W=cv.clientWidth;H=cv.clientHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+    if(W<900){hx=Math.max(80,W*.16);hy=H*.88;Lw=Math.min(W-hx-26,H*.58);}
+    else{hx=Math.max(90,W*.09);hy=H*.8;Lw=Math.min(W*.42,H*1.3);}
+    if(reduce)draw(10);
+  }
+
+  // Whip pose: angle of each segment (s = 0 at handle, 1 at tip) over time T (seconds).
+  // rest -> backswing (curls up and back) -> throw (a loop travels to the tip) -> relax
+  function ang(s,T){
+    var R=(4+14*s*s)*D, B=(-78-100*s)*D, F=(-14+8*s)*D;
+    var pB=ease(clamp((T-.9-s*.3)/.55)),
+        pF=ease(clamp((T-1.9-s*.2)/.1)),
+        pR=ease(clamp((T-2.4-s*.15)/.9));
+    var a=lerp(lerp(lerp(R,B,pB),F,pF),R,pR);
+    var idle=Math.min(1,(1-pB)+pR);
+    return a+Math.sin(T*2.1+s*5)*.035*s*idle;
+  }
+  function build(T){
+    var pB=ease(clamp((T-.9)/.55)),pF=ease(clamp((T-1.9)/.1)),pR=ease(clamp((T-2.4)/.9));
+    var x=hx-24*pB*(1-pF)+10*pF*(1-pR), y=hy-12*pB*(1-pF), seg=Lw/(N-1);
+    X[0]=x;Y[0]=y;
+    for(var i=1;i<N;i++){var a=ang((i-.5)/(N-1),T);x+=seg*Math.cos(a);y+=seg*Math.sin(a);X[i]=x;Y[i]=y;}
+  }
+  function crack(x,y){
+    cracked=true;hero.classList.add('go');
+    if(!reduce){
+      hero.classList.add('shake');setTimeout(function(){hero.classList.remove('shake')},350);
+      if(userTap&&navigator.vibrate)navigator.vibrate(25);
+      ring={x:x,y:y,r:4,a:1};
+      for(var i=0;i<50;i++){var an=Math.random()*6.283,sp=2+Math.random()*7;sparks.push({x:x,y:y,vx:Math.cos(an)*sp,vy:Math.sin(an)*sp,l:1});}
+    }
+  }
+  function draw(T){
+    ctx.clearRect(0,0,W,H);
+    build(T);
+    var tx=X[N-1],ty=Y[N-1];
+    if(!cracked&&T>=2.2)crack(tx,ty);
+    // handle: always trails behind the whip's first segment (points left at rest and at the crack)
+    var hl=Math.min(hx-34,86),ha=Math.PI+ang(0,T)*.4,ex=X[0]+Math.cos(ha)*hl,ey=Y[0]+Math.sin(ha)*hl;
+    ctx.lineCap='round';
+    ctx.strokeStyle='#3b2413';ctx.lineWidth=12;ctx.beginPath();ctx.moveTo(X[0],Y[0]);ctx.lineTo(ex,ey);ctx.stroke();
+    ctx.strokeStyle='#5a3a1e';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(X[0],Y[0]);ctx.lineTo(ex,ey);ctx.stroke();
+    ctx.strokeStyle='#c8963e';ctx.lineWidth=14;ctx.beginPath();ctx.moveTo(X[0],Y[0]);ctx.lineTo(X[0]+Math.cos(ha)*12,Y[0]+Math.sin(ha)*12);ctx.stroke();
+    ctx.fillStyle='#c8963e';ctx.beginPath();ctx.arc(ex,ey,7.5,0,6.283);ctx.fill();
+    // whip body: tapered, braided stripes, pale popper at the end
+    for(var k=1;k<N;k++){
+      var s=k/(N-1),tipPart=k>=N-4;
+      ctx.lineWidth=tipPart?1.3:1.4+Math.pow(1-s,1.2)*5.2;
+      ctx.strokeStyle=tipPart?'#d8c7a0':(k%4<2?'#6e4727':'#2e1e12');
+      ctx.beginPath();ctx.moveTo(X[k-1],Y[k-1]);ctx.lineTo(X[k],Y[k]);ctx.stroke();
+    }
+    // crack effects
+    if(ring){
+      ctx.strokeStyle='rgba(255,230,180,'+ring.a+')';ctx.lineWidth=2;
+      ctx.beginPath();ctx.arc(ring.x,ring.y,ring.r,0,6.283);ctx.stroke();
+      for(var r=0;r<10;r++){var an=r*.628+.3;ctx.beginPath();ctx.moveTo(ring.x+Math.cos(an)*ring.r*.5,ring.y+Math.sin(an)*ring.r*.5);ctx.lineTo(ring.x+Math.cos(an)*ring.r*.95,ring.y+Math.sin(an)*ring.r*.95);ctx.stroke();}
+      ring.r+=9;ring.a-=.05;if(ring.a<=0)ring=null;
+    }
+    for(var q=sparks.length-1;q>=0;q--){
+      var p=sparks[q];p.x+=p.vx;p.y+=p.vy;p.vy+=.25;p.vx*=.97;p.l-=.025;
+      if(p.l<=0){sparks.splice(q,1);continue;}
+      ctx.fillStyle='rgba(255,'+(170+p.l*60|0)+',90,'+p.l+')';ctx.fillRect(p.x,p.y,2.5,2.5);
+    }
+  }
+
+  function frame(now){
+    if(!visible){running=false;return;}
+    draw((now-tStart)/1000);
+    requestAnimationFrame(frame);
+  }
+  function start(){if(!running&&!reduce){running=true;requestAnimationFrame(frame);}}
+  function play(user){
+    tStart=performance.now();cracked=false;sparks=[];ring=null;userTap=!!user;
+    hero.classList.remove('go','shake');start();
+  }
+  function replay(){if(performance.now()-tStart>3200)play(true);}
+
+  size();
+  addEventListener('resize',size);
+  if(reduce){cracked=true;hero.classList.add('go');draw(10);return;}
+  hero.addEventListener('click',replay);
+  hero.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();replay();}});
+  // replay when the banner scrolls back into view
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){
+      var e=es[0];visible=e.intersectionRatio>0;
+      if(visible)start();
+      if(e.intersectionRatio<.5)armed=true;
+      else if(armed&&performance.now()-tStart>3200){armed=false;play(false);}
+    },{threshold:[0,.5]}).observe(hero);
+  }
+  play(false);
+})();
+</script>
+</body>
+</html>
