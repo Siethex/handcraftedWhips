@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Handmade Whips | [Maker Name]</title>
+<meta name="description" content="Hand-braided whips made to order. Request yours today.">
+<style>
+:root{--bg:#14100d;--panel:#1f1813;--ink:#efe4d3;--mute:#a8977f;--brass:#c8963e;--red:#a63a22}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:17px/1.65 Georgia,"Times New Roman",serif}
+a{color:var(--brass)}
+nav{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:.8rem 5vw;background:rgba(20,16,13,.92);backdrop-filter:blur(6px);border-bottom:1px solid #3a2e22}
+nav b{letter-spacing:.2em;text-transform:uppercase;font-size:.95rem}
+nav div a{margin-left:1.4rem;text-decoration:none;color:var(--mute);font-size:.9rem}
+nav div a:hover{color:var(--brass)}
+/* HERO / BANNER */
+.hero{position:relative;height:340px;overflow:hidden;background:radial-gradient(ellipse at 20% 80%,#3a2414,var(--bg) 70%)}
+#whip{position:absolute;inset:0;width:100%;height:100%}
+.hero h1{position:absolute;right:5vw;top:50%;transform:translateY(-55%);text-align:right;font-size:clamp(1.8rem,5.5vw,4rem);line-height:1.05;text-transform:uppercase;letter-spacing:.06em;pointer-events:none}
+.hero h1 span{display:inline-block;opacity:0}
+.hero.go h1 span{animation:fly .9s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes fly{from{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--r)) scale(1.8)}to{opacity:1;transform:none}}
+.hero p.tag{position:absolute;right:5vw;bottom:2.2rem;color:var(--brass);font-style:italic;opacity:0;transition:opacity .8s .5s}
+.hero.go p.tag{opacity:1}
+.again{position:absolute;left:5vw;top:1rem;background:none;border:1px solid var(--mute);color:var(--mute);padding:.3rem .8rem;border-radius:2px;cursor:pointer;font:inherit;font-size:.8rem}
+.again:hover{color:var(--brass);border-color:var(--brass)}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+.hero.go .flash{animation:fl .25s ease-out}
+@keyframes fl{from{opacity:.35}to{opacity:0}}
+/* SECTIONS */
+section{padding:4rem 5vw;max-width:1100px;margin:auto}
+h2{font-size:1.7rem;text-transform:uppercase;letter-spacing:.14em;margin-bottom:1rem}
+h2::after{content:"";display:block;width:60px;height:2px;background:var(--brass);margin-top:.5rem}
+.welcome p{max-width:62ch;margin-bottom:1rem;color:#d8cbb6}
+/* GALLERY */
+.gal-wrap{position:relative}
+.gallery{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:.5rem 0 1rem;scrollbar-color:var(--brass) var(--panel)}
+.gallery figure{flex:0 0 min(78%,380px);scroll-snap-align:center;background:var(--panel);border:1px solid #3a2e22}
+.gallery .ph,.gallery img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+.gallery .ph{display:grid;place-items:center;color:var(--mute);font-size:.85rem}
+.gallery figcaption{padding:.6rem .9rem;font-size:.9rem;color:var(--mute)}
+.arrows{display:flex;gap:.5rem;margin-top:.3rem}
+.arrows button{background:var(--panel);color:var(--brass);border:1px solid #3a2e22;width:42px;height:42px;font-size:1.2rem;cursor:pointer}
+.arrows button:hover{background:var(--brass);color:#14100d}
+/* VIDEO */
+.video{aspect-ratio:16/9;background:var(--panel);border:1px solid #3a2e22;display:grid;place-items:center;color:var(--mute)}
+.video video{width:100%;height:100%;object-fit:cover}
+/* FORM */
+form{display:grid;gap:1rem;max-width:620px}
+label{display:grid;gap:.3rem;font-size:.9rem;color:var(--mute)}
+input,select,textarea{background:var(--panel);color:var(--ink);border:1px solid #4a3a2a;padding:.7rem;font:inherit;border-radius:2px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--brass)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:560px){.row{grid-template-columns:1fr}nav div a{margin-left:.8rem}}
+.go-btn{background:var(--red);color:#fff;border:0;padding:.9rem 1.4rem;font:inherit;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.go-btn:hover{background:#c24526}
+.note{font-size:.85rem;color:var(--mute)}
+.hp{position:absolute;left:-9999px}
+footer{text-align:center;padding:2rem;color:var(--mute);font-size:.85rem;border-top:1px solid #3a2e22}
+</style>
+</head>
+<body>
+<nav><b>[Maker Name]</b><div><a href="#about">Welcome</a><a href="#gallery">Gallery</a><a href="#video">In Action</a><a href="#order">Order</a></div></nav>
+
+<header class="hero" id="hero">
+  <canvas id="whip"></canvas>
+  <div class="flash"></div>
+  <h1 id="headline" aria-label="Hand braided. Built to crack.">Hand Braided.<br>Built to Crack.</h1>
+  <p class="tag">Custom whips, made one at a time.</p>
+  <button class="again" id="again" type="button">Crack again</button>
+</header>
+
+<section class="welcome" id="about">
+  <h2>Welcome</h2>
+  <p>Every whip here is braided by hand, start to finish. Pick your length, your colors and your style, and it gets built just for you.</p>
+  <p>Replace this with [Maker Name]'s story: how long he's been braiding, what he uses (kangaroo hide, paracord, nylon), and what makes his work different.</p>
+</section>
+
+<section id="gallery">
+  <h2>The Work</h2>
+  <div class="gal-wrap">
+    <div class="gallery" id="gal">
+      <!-- Replace each .ph div with: <img src="images/whip1.jpg" alt="Description"> -->
+      <figure><div class="ph" style="background:linear-gradient(135deg,#5a3418,#1f1813)">Photo 1</div><figcaption>Bullwhip, 6 ft, black and brown</figcaption></figure>
+      <figure><div class="ph" style="background:linear-gradient(135deg,#7a2a18,#1f1813)">Photo 2</div><figcaption>Signal whip, red and black</figcaption></figure>
+      <figure><div class="ph" style="background:linear-gradient(135deg,#4a4a2a,#1f1813)">Photo 3</div><figcaption>Handle detail</figcaption></figure>
+      <figure><div class="ph" style="background:linear-gradient(135deg,#2a3a4a,#1f1813)">Photo 4</div><figcaption>Custom colors</figcaption></figure>
+      <figure><div class="ph" style="background:linear-gradient(135deg,#6a4a1a,#1f1813)">Photo 5</div><figcaption>Fall and popper</figcaption></figure>
+      <figure><div class="ph" style="background:linear-gradient(135deg,#3a1a3a,#1f1813)">Photo 6</div><figcaption>Display set</figcaption></figure>
+    </div>
+    <div class="arrows"><button id="prev" aria-label="Previous">&#8592;</button><button id="next" aria-label="Next">&#8594;</button></div>
+  </div>
+</section>
+
+<section id="video">
+  <h2>In Action</h2>
+  <div class="video">
+    <!-- Swap in: <video controls poster="images/poster.jpg" src="video/whip.mp4" playsinline></video> -->
+    <span>Video goes here</span>
+  </div>
+  <p class="note" style="margin-top:.6rem">Tip: keep the file under ~25 MB (short MP4, H.264) so it loads fast. Or embed a YouTube link instead.</p>
+</section>
+
+<section id="order">
+  <h2>Request a Whip</h2>
+  <p class="note" style="margin-bottom:1rem">Send a request and you'll get an email back with a quote and timeline. No payment is taken on this site.</p>
+  <form name="whip-order" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="whip-order">
+    <p class="hp"><label>Leave blank <input name="bot-field"></label></p>
+    <div class="row">
+      <label>Name <input name="name" required autocomplete="name"></label>
+      <label>Email <input type="email" name="email" required autocomplete="email"></label>
+    </div>
+    <div class="row">
+      <label>Style
+        <select name="style"><option>Bullwhip</option><option>Signal whip</option><option>Snake whip</option><option>Not sure yet</option></select>
+      </label>
+      <label>Length <input name="length" placeholder="e.g. 6 ft"></label>
+    </div>
+    <label>Colors / details <input name="colors" placeholder="e.g. black and tan, red popper"></label>
+    <label>Anything else? <textarea name="message" rows="4"></textarea></label>
+    <button class="go-btn" type="submit">Send Request</button>
+  </form>
+</section>
+
+<footer>&copy; <span id="yr"></span> [Maker Name]. Handmade whips.</footer>
+
+<script>
+(function(){
+  document.getElementById('yr').textContent=new Date().getFullYear();
+  // gallery arrows
+  var gal=document.getElementById('gal');
+  document.getElementById('next').onclick=function(){gal.scrollBy({left:gal.clientWidth*.7,behavior:'smooth'})};
+  document.getElementById('prev').onclick=function(){gal.scrollBy({left:-gal.clientWidth*.7,behavior:'smooth'})};
+
+  // headline letters
+  var h=document.getElementById('headline'),hero=document.getElementById('hero');
+  var label=h.getAttribute('aria-label');
+  h.innerHTML=h.innerHTML.split(/(<br>)/).map(function(p){
+    if(p==='<br>')return p;
+    return p.split('').map(function(c,i){
+      if(c===' ')return ' ';
+      return '<span style="--dx:'+((Math.random()-.5)*500|0)+'px;--dy:'+((Math.random()-.5)*200|0)+'px;--r:'+((Math.random()-.5)*160|0)+'deg;animation-delay:'+(i*18)+'ms">'+c+'</span>';
+    }).join('');
+  }).join('');
+  h.setAttribute('aria-label',label);
+
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){hero.classList.add('go');h.querySelectorAll('span').forEach(function(s){s.style.opacity=1;s.style.animation='none'});document.getElementById('again').style.display='none';return;}
+
+  // whip simulation
+  var cv=document.getElementById('whip'),ctx=cv.getContext('2d');
+  var W,H,N=38,seg,pts=[],sparks=[],ring=null,t0=0,cracked=false,dpr=Math.min(devicePixelRatio||1,2);
+  function size(){W=cv.clientWidth;H=cv.clientHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);seg=Math.max(5,Math.min(14,W*.6/N));}
+  function reset(){
+    pts=[];var ax=40,ay=H*.78;
+    for(var i=0;i<N;i++)pts.push({x:ax+i*seg*.9,y:ay+i*2,px:ax+i*seg*.9,py:ay+i*2});
+    sparks=[];ring=null;cracked=false;t0=performance.now();
+    hero.classList.remove('go');
+  }
+  function ease(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2}
+  function anchor(t){ // t in seconds; returns handle position
+    var bx=40,by=H*.78;
+    if(t<1.4)return{x:bx+Math.sin(t*2)*6,y:by+Math.sin(t*3)*5};
+    if(t<1.9){var k=ease((t-1.4)/.5);return{x:bx-30*k,y:by-H*.38*k};} // wind back and up
+    if(t<2.15){var k=ease((t-1.9)/.25);return{x:bx-30+W*.34*k,y:by-H*.38+H*.38*k+H*.05*k};} // snap forward
+    var k=Math.min(1,(t-2.15)/1.2);return{x:bx-30+W*.34*(1-.9*ease(k)),y:by+H*.05*(1-ease(k))-H*0};
+  }
+  function crack(x,y){
+    cracked=true;hero.classList.add('go');ring={x:x,y:y,r:4,a:1};
+    for(var i=0;i<46;i++){var a=Math.random()*6.283,s=2+Math.random()*7;sparks.push({x:x,y:y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,l:1});}
+  }
+  var last=0;
+  function frame(now){
+    var t=(now-t0)/1000,dt=Math.min(.033,(now-last)/1000||.016);last=now;
+    ctx.clearRect(0,0,W,H);
+    var a=anchor(t);pts[0].x=a.x;pts[0].y=a.y;
+    for(var i=1;i<N;i++){var p=pts[i],vx=(p.x-p.px)*.992,vy=(p.y-p.py)*.992;p.px=p.x;p.py=p.y;p.x+=vx;p.y+=vy+.45;}
+    for(var it=0;it<14;it++){
+      pts[0].x=a.x;pts[0].y=a.y;
+      for(var j=1;j<N;j++){
+        var A=pts[j-1],B=pts[j],dx=B.x-A.x,dy=B.y-A.y,d=Math.hypot(dx,dy)||.001,df=(d-seg)/d;
+        if(j===1){B.x-=dx*df;B.y-=dy*df;}else{A.x+=dx*df*.5;A.y+=dy*df*.5;B.x-=dx*df*.5;B.y-=dy*df*.5;}
+      }
+    }
+    var tip=pts[N-1];
+    if(!cracked&&t>2.3)crack(Math.min(tip.x,W*.75),Math.min(tip.y,H*.8));
+    // draw whip: tapered
+    for(var k=1;k<N;k++){
+      var w=1+ (1-k/N)*5;
+      ctx.strokeStyle=k%4<2?'#5a3a1e':'#2a1c10';ctx.lineWidth=w;ctx.lineCap='round';
+      ctx.beginPath();ctx.moveTo(pts[k-1].x,pts[k-1].y);ctx.lineTo(pts[k].x,pts[k].y);ctx.stroke();
+    }
+    // handle
+    ctx.strokeStyle='#c8963e';ctx.lineWidth=11;ctx.lineCap='round';
+    ctx.beginPath();ctx.moveTo(a.x-34,a.y+14);ctx.lineTo(a.x,a.y);ctx.stroke();
+    // fx
+    if(ring){ctx.strokeStyle='rgba(255,230,180,'+ring.a+')';ctx.lineWidth=2;ctx.beginPath();ctx.arc(ring.x,ring.y,ring.r,0,6.283);ctx.stroke();ring.r+=9;ring.a-=.04;if(ring.a<=0)ring=null;}
+    for(var s=sparks.length-1;s>=0;s--){var q=sparks[s];q.x+=q.vx;q.y+=q.vy;q.vy+=.25;q.vx*=.97;q.l-=.025;
+      if(q.l<=0){sparks.splice(s,1);continue;}
+      ctx.fillStyle='rgba(255,'+(170+q.l*60|0)+',90,'+q.l+')';ctx.fillRect(q.x,q.y,2.5,2.5);}
+    requestAnimationFrame(frame);
+  }
+  size();reset();requestAnimationFrame(frame);
+  addEventListener('resize',function(){size();reset();});
+  document.getElementById('again').onclick=function(){
+    h.querySelectorAll('span').forEach(function(s){s.style.animation='none';void s.offsetWidth;s.style.animation='';});
+    reset();
+  };
+})();
+</script>
+</body>
+</html>
